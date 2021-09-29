@@ -10,39 +10,41 @@ module decoder_5_32 (
 );
 
     /* case statment of decoder */
-    case (sel)
-        5'b11111: decoded[31] = 1'b1;
-        5'b11110: decoded[30] = 1'b1;
-        5'b11101: decoded[29] = 1'b1;
-        5'b11100: decoded[28] = 1'b1;
-        5'b11011: decoded[27] = 1'b1;
-        5'b11010: decoded[26] = 1'b1;
-        5'b11001: decoded[25] = 1'b1;
-        5'b11000: decoded[24] = 1'b1;
-        5'b10111: decoded[23] = 1'b1;
-        5'b10110: decoded[22] = 1'b1;
-        5'b10101: decoded[21] = 1'b1;
-        5'b10100: decoded[20] = 1'b1;
-        5'b10011: decoded[19] = 1'b1;
-        5'b10010: decoded[18] = 1'b1;
-        5'b10001: decoded[17] = 1'b1;
-        5'b10000: decoded[16] = 1'b1;
-        5'b01111: decoded[15] = 1'b1;
-        5'b01110: decoded[14] = 1'b1;
-        5'b01101: decoded[13] = 1'b1;
-        5'b01100: decoded[12] = 1'b1;
-        5'b01011: decoded[11] = 1'b1;
-        5'b01010: decoded[10] = 1'b1;
-        5'b01001: decoded[9] = 1'b1;
-        5'b01000: decoded[8] = 1'b1;
-        5'b00111: decoded[7] = 1'b1;
-        5'b00110: decoded[6] = 1'b1;
-        5'b00101: decoded[5] = 1'b1;
-        5'b00100: decoded[4] = 1'b1;
-        5'b00011: decoded[3] = 1'b1;
-        5'b00010: decoded[2] = 1'b1;
-        5'b00001: decoded[1] = 1'b1;
-        default: decoded[0] = 1'b1;
-    endcase
+    always @(sel) begin
+        case (sel)
+            5'b11111: begin decoded[31] = 1'b1; end
+            5'b11110: begin decoded[30] = 1'b1; end
+            5'b11101: begin decoded[29] = 1'b1; end
+            5'b11100: begin decoded[28] = 1'b1; end
+            5'b11011: begin decoded[27] = 1'b1; end
+            5'b11010: begin decoded[26] = 1'b1; end
+            5'b11001: begin decoded[25] = 1'b1; end
+            5'b11000: begin decoded[24] = 1'b1; end
+            5'b10111: begin decoded[23] = 1'b1; end
+            5'b10110: begin decoded[22] = 1'b1; end
+            5'b10101: begin decoded[21] = 1'b1; end
+            5'b10100: begin decoded[20] = 1'b1; end
+            5'b10011: begin decoded[19] = 1'b1; end
+            5'b10010: begin decoded[18] = 1'b1; end
+            5'b10001: begin decoded[17] = 1'b1; end
+            5'b10000: begin decoded[16] = 1'b1; end
+            5'b01111: begin decoded[15] = 1'b1; end
+            5'b01110: begin decoded[14] = 1'b1; end
+            5'b01101: begin decoded[13] = 1'b1; end
+            5'b01100: begin decoded[12] = 1'b1; end
+            5'b01011: begin decoded[11] = 1'b1; end
+            5'b01010: begin decoded[10] = 1'b1; end
+            5'b01001: begin decoded[9] = 1'b1; end
+            5'b01000: begin decoded[8] = 1'b1; end
+            5'b00111: begin decoded[7] = 1'b1; end
+            5'b00110: begin decoded[6] = 1'b1; end
+            5'b00101: begin decoded[5] = 1'b1; end
+            5'b00100: begin decoded[4] = 1'b1; end
+            5'b00011: begin decoded[3] = 1'b1; end
+            5'b00010: begin decoded[2] = 1'b1; end
+            5'b00001: begin decoded[1] = 1'b1; end
+            default: begin decoded[0] = 1'b1; end
+        endcase
+    end
 
 endmodule
