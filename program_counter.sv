@@ -10,13 +10,12 @@
 module program_counter(
     /* input signals */
     input logic clk,        // clock signal
-    input logic clr,        // clear bit
+    input logic clr,        // clear/reset signal
+    input logic inc,        // increment program counter
+    input logic ld,         // allow data to be stored
 
     /* input buses */
     input logic [31:0] d,   // input data bus
-    input logic inc,        // increment data
-    input logic ld,         // allow data to be stored
-    input logic rst,        // reset output q to be 0
 
     /* output signals */
     output logic [31:0] q   // output databus 
