@@ -26,7 +26,7 @@ module reg_32bit (
     endgenerate
 
     initial begin           // initialize reg with zeros
-        assign q = 32'b0;   // clear output ports
+        q = 32'b0;   // clear output ports
     end
 
 
