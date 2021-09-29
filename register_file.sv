@@ -55,7 +55,7 @@ module register_file (
         /* register writer */
             decoder_5_32 decoder (
                 /* input ports */
-                .sel (reg_adr),         // address of register to write
+                .sel (write_reg),         // address of register to write
                 
                 /* output ports */
                 .decoded (decode_sel)   // 32-wire bus to be ANDed with write signal for chip select
@@ -77,13 +77,4 @@ module register_file (
                 reg_sel = write & decode_sel;   // bitwise AND write signal with decode_sel bus
             end
     
-    /* initialisation */
-    /* 
-    initial begin
-        assign clk <= 0;    // start clock signal low
-        assign write <= 0;  // start write signal low
-        assign clr = 1;     // send clear signal
-        assign clr = 0;     // set clear signal low
-    end
-    */
 endmodule
