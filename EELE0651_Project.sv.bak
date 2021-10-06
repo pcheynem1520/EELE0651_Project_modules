@@ -71,7 +71,7 @@ module EELE0651_Project (
         .clk (clk), // clock signal
 
         /* input buses */
-        .alu_op (alu_op),    // two bit number to choose result op code
+        .alu_op,    // two bit number to choose result op code
         .A (reg_A), // A register
         .B (reg_B), // B register
 

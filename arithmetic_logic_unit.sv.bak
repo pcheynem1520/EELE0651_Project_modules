@@ -24,14 +24,14 @@ module arithmetic_logic_unit (
     output logic F_overflow,    // overflow flag:   set if result has overflowed
 
     /* output buses */
-    output logic [31:0] result     // final result
+    output logic [31:0] result,     // final result
 );
 
     /* internal wiring */
     wire [32:0] tmp_res;
-    always_comb begin : result_and_overflow
-        tmp_res[31:0] = result[31:0];
-        tmp_res[32] = F_overflow;
+    always_comb begin : result+overflow
+        result[31:0] = tmp_res[31:0];
+        F_overflow = tmp_res[32];
     end
 
     /* initialization */
