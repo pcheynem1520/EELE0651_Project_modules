@@ -44,12 +44,12 @@ module arithmetic_logic_unit (
     /* ALU definition */
     always @(posedge clk) begin
         case (alu_op)
-            3'b000:     result <= A & B;
-            3'b001:     result <= A | B;
-            3'b010:     result <= A + B;
-            3'b110:     result <= A - B;
-            3'b100:     result <= A << 1;
-            3'b101:     result <= A >> 1;
+            3'b000:     tmp_res <= A & B;
+            3'b001:     tmp_res <= A | B;
+            3'b010:     tmp_res <= A + B;
+            3'b110:     tmp_res <= A - B;
+            3'b100:     tmp_res <= A << 1;
+            3'b101:     tmp_res <= A >> 1;
             default:    result <= result;   // error, do nothing
         endcase
 
