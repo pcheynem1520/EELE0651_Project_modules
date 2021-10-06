@@ -6,8 +6,7 @@
 // 
 //=========================================================
 
-
-module program_counter(
+module program_counter (
     /* input signals */
     input logic clk,        // clock signal
     input logic clr,        // clear/reset signal

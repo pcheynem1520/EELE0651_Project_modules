@@ -1,3 +1,13 @@
+//=========================================================
+// EELE 0651: Computer Organization
+// Authors: PJ Cheyne-Miller, Brenden O'Donnell
+// Date: 
+// Description: 
+// 
+// Design and simulate a single cycle processor for given
+// instruction set (a subset of the MIPS instructions).
+//=========================================================
+
 module EELE0651_Project (
     /* input signals */
     input logic clk,    // clock signal
@@ -6,19 +16,26 @@ module EELE0651_Project (
     input logic inc,    // increment pc signal
     input logic ld,     // load pc data signal 
 
-
     /* input buses */
     input logic [4:0] read_reg_1,   // address of first register to read 
     input logic [4:0] read_reg_2,   // address of second register to read
     input logic [4:0] write_reg,    // address of register written
     input logic [31:0] write_data,  // bus of data to write to register
     input logic [31:0] pc_data_in,  // pc data input bus
+    input logic [31:0] alu_op,      // alu operation
 
     /* output buses */
     output logic read_data_1,           // register file 32-bit output
     output logic read_data_2,           // register file 32-bit output
-    output logic [31:0] pc_data_out     // pc data output bus
+    output logic [31:0] pc_data_out,    // pc data output bus
+    output logic [31:0] alu_result      // result from alu
 );
+
+    /* internal wiring */
+    reg [31:0] flags;       // flags register
+    reg [31:0] reg_A;       // A register
+    reg [31:0] reg_B;       // B register
+    reg [31:0] reg_out;     // output register
 
     /* module declarations */
     register_file reg_file (
@@ -48,6 +65,22 @@ module EELE0651_Project (
 
         /* output signals */
         .q (pc_data_out)    // output databus 
+    );
+    arithmetic_logic_unit ALU (
+        /* input signals */
+        .clk, // clock signal
+
+        /* input buses */
+        .alu_op,    // two bit number to choose result op code
+        .A (),           // A register
+        .B (),           // B register
+
+        /* output signal */
+        .F_zero (flags[0]),     // zero flag 1st bit of flags register
+        .F_overflow (flags[1]), // overflow flag 2nd bit of flags register
+
+        /* output buses */
+        .result (alu_result),   // final result
     );
 
 endmodule

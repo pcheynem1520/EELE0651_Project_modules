@@ -2,7 +2,7 @@
 // EELE 0651: Computer Organization
 // Authors: PJ Cheyne-Miller, Brenden O'Donnell
 // Date: 29 September 2021
-// Description:
+// Description: 
 // 
 //=========================================================
 
@@ -22,8 +22,6 @@ module register_file (
     output logic read_data_1,       // register file 32-bit output
     output logic read_data_2        // register file 32-bit output
 );
-
-    
 
     /* variables & wires*/
     genvar i;
