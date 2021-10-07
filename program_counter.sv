@@ -4,14 +4,17 @@
 // Date: 29 September 2021
 // Description: 
 // 
+// The program counter is the processing unit that controls
+// which operations are executed and when through control
+// signals and access to the program memory.
 //=========================================================
 
 module program_counter (
     /* input signals */
-    input logic clk,        // clock signal
-    input logic clr,        // clear/reset signal
-    input logic inc,        // increment program counter
-    input logic ld,         // allow data to be stored
+    input logic clk,    // clock signal
+    input logic clr,    // clear/reset signal
+    input logic inc,    // increment program counter
+    input logic ld,     // allow data to be stored
 
     /* input buses */
     input logic [31:0] d,   // input data bus
@@ -20,8 +23,8 @@ module program_counter (
     output logic [31:0] q   // output databus 
 );
 
-	initial begin
-		q <= 32'b00000000;  // when initialized q = 0
+	initial begin           // initialise the following values:
+		q <= 32'b00000000;  // q = 0
 	end
 
     always @(posedge clk) begin             // at the positive edge of clock signal

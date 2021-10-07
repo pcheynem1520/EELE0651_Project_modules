@@ -4,8 +4,8 @@
 // Date: 
 // Description: 
 // 
-// Design and simulate a single cycle processor for given
-// instruction set (a subset of the MIPS instructions).
+// A single cycle processor for given a subset of the MIPS
+// instructions set.
 //=========================================================
 
 module EELE0651_Project (
@@ -71,9 +71,9 @@ module EELE0651_Project (
         .clk (clk), // clock signal
 
         /* input buses */
-        .alu_op (alu_op),    // two bit number to choose result op code
-        .A (reg_A), // A register
-        .B (reg_B), // B register
+        .alu_op (alu_op),   // two bit number to choose result op code
+        .A (reg_A),         // A register
+        .B (reg_B),         // B register
 
         /* output signal */
         .F_zero (flags[0]),     // zero flag 1st bit of flags register
