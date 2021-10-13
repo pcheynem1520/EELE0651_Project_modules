@@ -4,9 +4,11 @@
 // Date: 6 October 2021
 // Description:
 // 
-// Takes 3-bit opcodes which specify the operation to be
-// performed. Should the operations result in zero or
-// overflow, the appropriate flags will be set.
+// The data memory unit has an 8-bit address input (addr),
+// 32-bit data input and output (data_in and data_out),
+// and other control lines such as clock, write enable
+// (wen), and enable (en). This allows for the storage of
+// data for use by the processor.
 //=========================================================
 
 module data_memory_unit (
