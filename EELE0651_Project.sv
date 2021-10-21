@@ -24,28 +24,28 @@ module EELE0651_Project (
 
     /* internal logic */
 		/* program counter */
-		reg [31:0] reg_A;       // A register
-		reg [31:0] reg_B;       // B register
-		reg [31:0] reg_out;     // output register
-		reg [31:0] pc_data_out; // pc data output bus
-        reg [31:0] pc_data_in;  // pc data input bus
+		logic [31:0] reg_A;         // A register
+		logic [31:0] reg_B;         // B register
+		logic [31:0] reg_out;       // output register
+		logic [31:0] pc_data_out;   // pc data output bus
+        logic [31:0] pc_data_in;    // pc data input bus
 		
 		/* register file */
-		reg [31:0] read_data_1;	// register file 32-bit output
-		reg [31:0] read_data_2; // register file 32-bit output
-        reg [31:0] write_data;  // register file 32-bit input
-        reg [4:0] read_reg_1;   // address of first register to read 
-        reg [4:0] read_reg_2;   // address of second register to read
-        reg [4:0] write_reg;    // address of register written
+		logic [31:0] read_data_1;	// register file 32-bit output
+		logic [31:0] read_data_2;   // register file 32-bit output
+        logic [31:0] write_data;    // register file 32-bit input
+        logic [4:0] read_reg_1;     // address of first register to read 
+        logic [4:0] read_reg_2;     // address of second register to read
+        logic [4:0] write_reg;      // address of register written
 
         /* arithmetic logic unit */
-        reg [31:0] alu_op;      // alu operation
-		reg [31:0] alu_result;	// result from alu
+        logic [31:0] alu_op;        // alu operation
+		logic [31:0] alu_result;    // result from alu
 		
 		/* data memory unit */
-		reg [7:0] dmu_addr;         // address for data memory unit access
-		reg [31:0] dmu_data_in;     // data input bus for data memory unit
-		reg [31:0] dmu_data_out;    // data output from data memory unit
+		logic [7:0] dmu_addr;       // address for data memory unit access
+		logic [31:0] dmu_data_in;   // data input bus for data memory unit
+		logic [31:0] dmu_data_out;  // data output from data memory unit
 
     /* module declarations */
     register_file reg_file (
@@ -110,6 +110,7 @@ module EELE0651_Project (
     /* clock division */
     logic clk_mem;  // memory clock
     logic clk;      // standard clock
+
     always_comb begin : clk_sync        // sync memory clock signal
         clk_mem <= clk_in;              // memory clock is same speed as input clock signal
     end always @(negedge clk_mem) begin // on negative edge of memory clock signal
