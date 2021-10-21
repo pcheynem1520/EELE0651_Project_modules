@@ -10,12 +10,16 @@
 
 module EELE0651_Project (
     /* input signals */
-    input logic clk,    // clock signal
-    input logic write,  // read/write control signal (read = 0, write = 1)
-    input logic clr,    // clear/reset signal
-    input logic pc_inc, // increment pc signal
-    input logic pc_ld,  // load pc data signal
-    input logic dmu_wen	// write enable for data memory unit
+    input logic clk_in,     // input clock signal
+    input logic write,      // read/write control signal (read = 0, write = 1)
+    input logic clr,        // clear/reset signal
+    input logic pc_inc,     // increment pc signal
+    input logic pc_ld,      // load pc data signal
+    input logic dmu_wen,    // write enable for data memory unit
+
+    /* output signals */
+    output logic F_zero,    // zero flag
+    output logic F_overflow // overflow flag
 );
 
     /* internal logic */
@@ -35,7 +39,6 @@ module EELE0651_Project (
         reg [4:0] write_reg;    // address of register written
 
         /* arithmetic logic unit */
-        reg [1:0] flags;        // flags register
         reg [31:0] alu_op;      // alu operation
 		reg [31:0] alu_result;	// result from alu
 		
@@ -43,8 +46,6 @@ module EELE0651_Project (
 		reg [7:0] dmu_addr;         // address for data memory unit access
 		reg [31:0] dmu_data_in;     // data input bus for data memory unit
 		reg [31:0] dmu_data_out;    // data output from data memory unit
-		 
-		 
 
     /* module declarations */
     register_file reg_file (
@@ -86,15 +87,15 @@ module EELE0651_Project (
         .B (reg_B),         // B register
 
         /* output signal */
-        .F_zero (flags[0]),     // zero flag 1st bit of flags register
-        .F_overflow (flags[1]), // overflow flag 2nd bit of flags register
+        .F_zero (F_zero),           // zero flag 1st bit of flags register
+        .F_overflow (F_overflow),   // overflow flag 2nd bit of flags register
 
         /* output buses */
         .result (alu_result)    // final result
     );
     data_memory_unit dmu (
         /* input signals */
-        .clk (clk),     // clock signal
+        .clk (clk_mem), // clock signal
         .en (!clr),     // chip-enable signal
         .wen (dmu_wen), // write-enable signal
 
@@ -105,5 +106,16 @@ module EELE0651_Project (
         /* output buses */
         .data_out (dmu_data_out)    // output data bus
     );
+
+    /* clock division */
+    logic clk_mem;  // memory clock
+    logic clk;      // standard clock
+    always_comb begin : clk_sync        // sync memory clock signal
+        clk_mem <= clk_in;              // memory clock is same speed as input clock signal
+    end always @(negedge clk_mem) begin // on negative edge of memory clock signal
+        clk = !clk;                     // flip standard clock signal
+    end                                 // therefore divide clk_in by 2
+
+    
 
 endmodule
