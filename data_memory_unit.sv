@@ -22,30 +22,30 @@ module data_memory_unit (
     input logic [31:0] data_in, // input data bus
 
     /* output buses */
-    input logic [31:0] data_out // output data bus
+    output logic [31:0] data_out // output data bus
 );
 
     /* internal logic */
-    reg [7:0] data_mem[31:0];   // data memory of 256 32-bit words 
+    reg [31:0] data_mem[0:255];   // data memory of 256 32-bit words 
 
     /* initialization */
-    initial begin   // initialise the memory unit to zeros
-        for (int i = 0; i < 2^8; i = i + 1) begin       // for each word
-            data_mem[i][31:0] = 32'b0;                  // clear each bit
+    initial begin
+        for (int i = 0; i <= 255; i = i + 1) begin   // for all data memory addresses
+            data_mem[i] = 0;                    // clear word
         end
     end
 
     /* Data memory unit definition */
-    always @(posedge clk) begin                                     // on the positive edge of the clock signal,
-        case (en)                                                   // depending on enable signal
-            1'b1: begin                                             // en = 1: chip enabled
-                case (wen)                                          // depending on write enable signal
-                    1'b1: data_mem[addr][31:0] <= data_in[31:0]     // wen = 1: write into data memory
-                    default: data_out[31:0] <= data_mem[addr][31:0] // wen = 0: read out of data_memory
-                endcase
+    always @(posedge clk) begin             // on the positive edge of clock signal
+        if (en) begin                       // if chip is enabled
+            if (wen) begin                  // if writing is enabled
+                data_mem[addr] <= data_in;  // input data into memory
+            end else begin                  // if writing is disabled
+                data_out <= data_mem[addr]; // output data from memory
             end
-            default: data_out[31:0] <= 32'b0;                       // en = 0: chip disabled
-        endcase
+        end else begin                      // if chip is disabled
+            data_out <= 0;                  // clear data memory output
+        end
     end
 
 endmodule
