@@ -20,10 +20,10 @@ module EELE0651_Project (
     input logic mux_a,      // select signal for A register mux
     input logic mux_b,      // select signal for B register mux
     input logic mux_data,   // select signal for data memory mux
-    input logic mux_im_1,   // select signal for ALU input 1 between IR bus or data bus
+    input logic mux_im_1,   // select signal for ALU input 1 between IR bus or A register
 
     /* input buses */
-    input logic [1:0] mux_im_2, // select signal for ALU input 1 between IR bus or data bus
+    input logic [1:0] mux_im_2, // select signal for ALU input 1 between IR bus, B register, 0xffff ffff
 
     /* output signals */
     output logic F_zero,        // zero flag
@@ -62,8 +62,8 @@ module EELE0651_Project (
         logic [15:0] uze_in;    // upper zero extender input
         logic [31:0] uze_out;   // upper zero extender output
 
-        logic [15:0] lze_pc_in;  // lower zero extender input
-        logic [31:0] lze_pc_out; // lower zero extender output
+        logic [15:0] lze_pc_in;     // lower zero extender input
+        logic [31:0] lze_pc_out;    // lower zero extender output
         
         logic [15:0] lze_a_in;  // lower zero extender input
         logic [31:0] lze_a_out; // lower zero extender output
@@ -71,8 +71,8 @@ module EELE0651_Project (
         logic [15:0] lze_b_in;  // lower zero extender input
         logic [31:0] lze_b_out; // lower zero extender output
         
-        logic [15:0] lze_alu_in;  // lower zero extender input
-        logic [31:0] lze_alu_out; // lower zero extender output
+        logic [15:0] lze_alu_in;    // lower zero extender input
+        logic [31:0] lze_alu_out;   // lower zero extender output
 
         /* datapath */
 		logic [31:0] reg_a;         // A register
@@ -188,8 +188,8 @@ module EELE0651_Project (
     );
 
     /* clock division */
-    logic clk_mem;  // memory clock
-    logic clk;      // standard clock
+    logic clk_mem;                      // memory clock
+    logic clk;                          // standard clock
     always_comb begin : clk_sync        // sync memory clock signal
         clk_mem <= clk_in;              // memory clock is same speed as input clock signal
     end
