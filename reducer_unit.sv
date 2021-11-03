@@ -4,7 +4,7 @@
 // Date: 6 October 2021
 // Description:
 // 
-// Takes the 32 bits from IR and sets the lwoer 8 bits
+// Takes the 32 bits from IR and sets the lower 8 bits
 // as its output
 //=========================================================
 
