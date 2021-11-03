@@ -1,3 +1,13 @@
+//=========================================================
+// EELE 0651: Computer Organization
+// Authors: PJ Cheyne-Miller, Brenden O'Donnell
+// Date: 6 October 2021
+// Description:
+// 
+// Takes the 32 bits from IR and sets the lwoer 8 bits
+// as its output
+//=========================================================
+
 module reducer_unit (
     /* input buses */
     input logic [31:0] data_in, // data input from instruction register

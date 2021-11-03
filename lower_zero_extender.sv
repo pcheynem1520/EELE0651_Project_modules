@@ -1,3 +1,14 @@
+//=========================================================
+// EELE 0651: Computer Organization
+// Authors: PJ Cheyne-Miller, Brenden O'Donnell
+// Date: 6 October 2021
+// Description:
+// 
+// Keeps the value of the lower bits and sets it
+// as the higher bits of a sequence. The lower 16 bits
+// are then all set to be zeros.
+//=========================================================
+
 module lower_zero_extender (
     /* input buses */
     input logic [15:0] lower_bits,
