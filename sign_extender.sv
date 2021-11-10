@@ -4,7 +4,10 @@
 // Date: 6 October 2021
 // Description:
 // 
-// 
+// Extends a 16-bit input to a 32-bit output. Extends the
+// MSB of the input to fill the output to maintain 2's
+// complement.
+// E.g. 0x0FFF -> 0x00000FFF and 0xF000 -> 0xFFFFF000
 //=========================================================
 
 
