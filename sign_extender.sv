@@ -10,7 +10,6 @@
 // E.g. 0x0FFF -> 0x00000FFF and 0xF000 -> 0xFFFFF000
 //=========================================================
 
-
 module sign_extender(
     /* input buses */
     input logic [15:0] inst_mem,        // instruction memory data
