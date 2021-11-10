@@ -42,7 +42,6 @@ module operation_decoder (
         branch = ctl_out[2];            // ANDed with zero flag for mux select forprogram counter
         alu_op = ctl_out[1:0];          // operation for ALU
     end
-    
 
     casex (ctl_op)                          // if the control unit operation is
         6'b000000: ctl_out <= 9'b100100010; // RTYPE, 100100010
