@@ -10,7 +10,7 @@
 // which instruction to execute.
 //=========================================================
 
-module operation_decoder (
+module processor_control_unit (
     /* input signals */
     input logic clk,    // clock signal
 
@@ -18,7 +18,7 @@ module operation_decoder (
     input logic [5:0] ctl_op,   // control unit operation
 
     /* output signal */
-    output logic reg_src,
+    output logic reg_dst,
     output logic alu_src,
     output logic mem_to_reg,
     output logic reg_write,
@@ -33,7 +33,7 @@ module operation_decoder (
     /* internal logic */
     logic [8:0] ctl_out;                // operation decoder output bus
     always_comb begin : control_output  // assigning bus lines to named signals
-        reg_src = ctl_out[8];           // mux select for source of register writer
+        reg_dst = ctl_out[8];           // mux select for destination of register writer
         alu_src = ctl_out[7];           // mux select for ALU source
         mem_to_reg = ctl_out[6];        // mux select for registers' write data source
         reg_write = ctl_out[5];         // enable signal for writing to registers
