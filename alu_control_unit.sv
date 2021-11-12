@@ -16,19 +16,21 @@ module alu_control_unit (
     output logic [2:0] alu_ctl
 );
 
-    casex (alu_op)
-        2'b00: alu_ctl <= 0010;                 // if opcode = LW/SW, add 
-        2'b01: alu_ctl <= 0110;                 // if opcode = BEQ, subtract
-        2'b1x: begin                            // if opcode = RTYPE and;
-            case (funct)
-                6'b100000: alu_ctl <= 3'b010;   // if funct = ADD, add
-                6'b100001: alu_ctl <= 3'b100;   // if funct = ROL, rotate 1 bit left
-                6'b100010: alu_ctl <= 3'b110;   // if funct = SUB, subtract
-                6'b100011: alu_ctl <= 3'b101;   // if funct = ROR, rotate 1 bit right
-                6'b100100: alu_ctl <= 3'b000;   // if funct = AND, and
-                6'b100101: alu_ctl <= 3'b001;   // if funct = OR, or
-            endcase
-        end
-    endcase
+    always_comb begin
+        casex (alu_op)
+            2'b00: alu_ctl <= 0010;                 // if opcode = LW/SW, add 
+            2'b01: alu_ctl <= 0110;                 // if opcode = BEQ, subtract
+            2'b1x: begin                            // if opcode = RTYPE and;
+                case (funct)
+                    6'b100000: alu_ctl <= 3'b010;   // if funct = ADD, add
+                    6'b100001: alu_ctl <= 3'b100;   // if funct = ROL, rotate 1 bit left
+                    6'b100010: alu_ctl <= 3'b110;   // if funct = SUB, subtract
+                    6'b100011: alu_ctl <= 3'b101;   // if funct = ROR, rotate 1 bit right
+                    6'b100100: alu_ctl <= 3'b000;   // if funct = AND, and
+                    6'b100101: alu_ctl <= 3'b001;   // if funct = OR, or
+                endcase
+            end
+        endcase
+    end
 
 endmodule
