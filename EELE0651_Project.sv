@@ -29,7 +29,6 @@ module EELE0651_Project (
 
         /* instruction memory */
         logic [31:0] imu_read_addr;  // input bus of instruction memory
-        logic [31:0] instruction;    // output bus of intruction memory
 
         /* processor control unit */
         logic reg_dst;          // mux select for source of register writer
@@ -150,7 +149,7 @@ module EELE0651_Project (
         .clk (clk), // clock signal
 
         /* input buses */
-        .alu_op (alu_op),   // two bit number to choose result op code
+        .alu_op (alu_ctl_in),   // two bit number to choose result op code
         .A (alu_in_a),      // ALU input A
         .B (alu_in_b),      // ALU input B
 
@@ -206,14 +205,14 @@ module EELE0651_Project (
         imu_addr <= pc_out; // read line specified by pc
 
         /* processor control unit */
-        pcu_in[5:0] <= instruction[31:26];                  // portion of instruction for processor control unit
+        pcu_in[5:0] <= imu_data_out[31:26];                  // portion of instruction for processor control unit
         
         /* register file */
-        read_reg_1[4:0] <= instruction[25:21];              // portion of instruction for reading from register file
-        read_reg_2[4:0] <= instruction[20:16];              // portion of instruction for reading from register file
+        read_reg_1[4:0] <= imu_data_out[25:21];              // portion of instruction for reading from register file
+        read_reg_2[4:0] <= imu_data_out[20:16];              // portion of instruction for reading from register file
         case (reg_dst)                                      // choosing correct bits from instruction for write address
-            1'b1: write_reg[4:0] <= instruction[15:11];         // if reg_dst = 1
-            default: write_reg[4:0] <= instruction[20:16];      // if reg_dst = 1
+            1'b1: write_reg[4:0] <= imu_data_out[15:11];         // if reg_dst = 1
+            default: write_reg[4:0] <= imu_data_out[20:16];      // if reg_dst = 1
         endcase
         case (mem_to_reg)                       // choosing which data is written to register file
             1'b1: write_data <= dmu_data_out;       // from data memory
@@ -221,10 +220,10 @@ module EELE0651_Project (
         endcase
 
         /* sign extender */
-        sign_ext_in[15:0] <= instruction[15:0]; // sign extending 16 LSBs
+        sign_ext_in[15:0] <= imu_data_out[15:0]; // sign extending 16 LSBs
 
         /* ALU control unit */
-        alu_ctl_funct[5:0] <= instruction[5:0]; // funct for ACU
+        alu_ctl_funct[5:0] <= imu_data_out[5:0]; // funct for ACU
 
         /* arithmetic logic unit */
         alu_in_a <= read_data_1;            // ALU port A
