@@ -24,8 +24,8 @@ module EELE0651_Project (
 
     /* declare variables */
         /* program counter */
-        logic [31:0] pc_in;     // pc input bus
-        logic [31:0] pc_out;    // pc output bus
+        logic [7:0] pc_in;     // pc input bus
+        logic [7:0] pc_out;    // pc output bus
 
         /* instruction memory */
         logic [31:0] imu_read_addr;  // input bus of instruction memory
