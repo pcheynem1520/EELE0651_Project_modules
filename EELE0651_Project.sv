@@ -224,6 +224,7 @@ module EELE0651_Project (
 
         /* ALU control unit */
         alu_ctl_funct[5:0] <= imu_data_out[5:0]; // funct for ACU
+        <= alu_ctl_out
 
         /* arithmetic logic unit */
         alu_in_a <= read_data_1;            // ALU port A
