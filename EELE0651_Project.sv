@@ -40,7 +40,7 @@ module EELE0651_Project (
         logic mem_write;        // enable signal for writing to data memory
         logic branch;           // ANDed with zero flag for mux select for program counter
         logic [5:0] pcu_in;     // input of processor control unit
-        logic [2:0] alu_ctl_in; // operation for ACU
+        logic [1:0] alu_ctl_in; // operation for ACU
 
         /* ALU control unit */
         logic [5:0] alu_ctl_funct;  // ACU function
