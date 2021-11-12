@@ -194,29 +194,29 @@ module EELE0651_Project (
     /* datapath logic */
     always_comb begin : datapath_logic
         /* next line of program */
-        case ((branch & F_zero))                                    // mux select
-            1'b1: begin                                             // if (branch & F_zero) = 1,
-                pc_in <= (pc_out + 4) + (imu_data_out << 2);            // branch to
+        case ((branch & F_zero))                                // mux select
+            1'b1: begin                                         // if (branch & F_zero) = 1,
+                pc_in <= (pc_out + 4) + (imu_data_out << 2);    // branch to
             end
-            default: pc_in <= pc_out + 4;                           // else, next line
+            default: pc_in <= pc_out + 4;                       // else, next line
         endcase
        
         /* instruction memory unit */
         imu_addr <= pc_out; // read line specified by pc
 
         /* processor control unit */
-        pcu_in[5:0] <= imu_data_out[31:26];                  // portion of instruction for processor control unit
+        pcu_in[5:0] <= imu_data_out[31:26]; // portion of instruction for processor control unit
         
         /* register file */
-        read_reg_1[4:0] <= imu_data_out[25:21];              // portion of instruction for reading from register file
-        read_reg_2[4:0] <= imu_data_out[20:16];              // portion of instruction for reading from register file
+        read_reg_1[4:0] <= imu_data_out[25:21];             // portion of instruction for reading from register file
+        read_reg_2[4:0] <= imu_data_out[20:16];             // portion of instruction for reading from register file
         case (reg_dst)                                      // choosing correct bits from instruction for write address
-            1'b1: write_reg[4:0] <= imu_data_out[15:11];         // if reg_dst = 1
-            default: write_reg[4:0] <= imu_data_out[20:16];      // if reg_dst = 1
+            1'b1: write_reg[4:0] <= imu_data_out[15:11];    // if reg_dst = 1
+            default: write_reg[4:0] <= imu_data_out[20:16]; // if reg_dst = 1
         endcase
-        case (mem_to_reg)                       // choosing which data is written to register file
-            1'b1: write_data <= dmu_data_out;       // from data memory
-            default: write_data <= alu_result;      // from ALU
+        case (mem_to_reg)                                   // choosing which data is written to register file
+            1'b1: write_data <= dmu_data_out;               // from data memory
+            default: write_data <= alu_result;              // from ALU
         endcase
 
         /* sign extender */
@@ -226,10 +226,10 @@ module EELE0651_Project (
         alu_ctl_funct[5:0] <= imu_data_out[5:0]; // funct for ACU
 
         /* arithmetic logic unit */
-        alu_in_a <= read_data_1;            // ALU port A
-        case (alu_src)                      // choosing ALU port B based on control signal
-            1'b1: alu_in_b <= sign_ext_out;
-            default: alu_in_b <= read_data_2; 
+        alu_in_a <= read_data_1;                // ALU port A
+        case (alu_src)                          // choosing ALU port B based on control signal
+            1'b1: alu_in_b <= sign_ext_out;     // from instruction memory
+            default: alu_in_b <= read_data_2;   // from register file
         endcase
 
         /* data memory unit */
