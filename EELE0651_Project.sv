@@ -32,18 +32,19 @@ module EELE0651_Project (
         logic [31:0] instruction;    // output bus of intruction memory
 
         /* processor control unit */
-        logic reg_dst;      // mux select for source of register writer
-        logic alu_src;      // mux select for ALU source
-        logic mem_to_reg;   // mux select for registers' write data source
-        logic reg_write;    // enable signal for writing to registers
-        logic mem_read;     // enable signal for reading from data memory
-        logic mem_write;    // enable signal for writing to data memory
-        logic branch;       // ANDed with zero flag for mux select for program counter
-        logic [5:0] pcu_in; // input of processor control unit
-        logic [2:0] alu_op; // operation for ALU
+        logic reg_dst;          // mux select for source of register writer
+        logic alu_src;          // mux select for ALU source
+        logic mem_to_reg;       // mux select for registers' write data source
+        logic reg_write;        // enable signal for writing to registers
+        logic mem_read;         // enable signal for reading from data memory
+        logic mem_write;        // enable signal for writing to data memory
+        logic branch;           // ANDed with zero flag for mux select for program counter
+        logic [5:0] pcu_in;     // input of processor control unit
+        logic [2:0] alu_ctl_op; // operation for ACU
 
         /* ALU control unit */
-        logic [3:0] alu_ctl;    // ALU control bus
+        logic [5:0] alu_ctl_funct;  // ACU function
+        logic [2:0] alu_op;         // ALU operation
 
         /* register file */
         logic [31:0] read_data_1;	// register file 32-bit output
@@ -122,6 +123,12 @@ module EELE0651_Project (
         /* output buses */
         .read_data_1 (read_data_1), // register file 32-bit output
         .read_data_2 (read_data_2)  // register file 32-bit output
+    );
+    alu_control_unit acu (
+        /* input buses */
+        .alu_op (alu_ctl_op),   // input operation for ACU
+        .funct (alu_ctl_funct), // input function from instruction
+        .alu_ctl (alu_ctl_out)  // output operation for ALU
     );
     arithmetic_logic_unit alu (
         /* input signals */
@@ -212,8 +219,11 @@ module EELE0651_Project (
         /* sign extender */
         sign_ext_in[15:0] <= instruction[15:0]; // sign extending 16 LSBs
 
-        /* aritmetic logic unit */
-        alu_ctl[5:0] <= instruction[5:0];   // funct for ALU controller
+        /* ALU control unit */
+        alu_ctl_funct[5:0] <= instruction[5:0]; // funct for ACU
+        alu_ctl_out <= alu_op;                  // operation for ALU
+
+        /* arithmetic logic unit */
         alu_in_a <= read_data_1;            // ALU port A
         case (alu_src)                      // choosing ALU port B based on control signal
             1'b1: alu_in_b <= sign_ext_out;
