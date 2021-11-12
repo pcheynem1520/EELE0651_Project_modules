@@ -50,13 +50,14 @@ module arithmetic_logic_unit (
             3'b100:     tmp_res <= A << 1;  // rotate A 1 bit left,
             3'b101:     tmp_res <= A >> 1;  // rotate A 1 bit right, or
         endcase
-
-        result[31:0] <= tmp_res;    // assign output to temporary value
+        result[31:0] <= tmp_res[31:0];    // assign output to temporary value
         F_overflow <= tmp_res[32];  // assign overflow flag
-        case (result)                                               // from thr result
-            0: F_zero = 1'b1;   // if all 0s, set zero flag
-            default: F_zero = 1'b0;                                // else, unset zero flag
-        endcase
+
+        if (result == 0) begin  // if the result bus is all zeros,
+            F_zero = 1;         // set the zero flag,
+        end else begin          // otherwise,
+            F_zero = 0;         // unset the zero flag
+        end
     end
 
 endmodule
