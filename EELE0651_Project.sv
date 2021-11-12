@@ -218,7 +218,7 @@ module EELE0651_Project (
             1'b1: write_data <= dmu_data_out;               // from data memory
             default: write_data <= alu_result;              // from ALU
         endcase
-
+        
         /* sign extender */
         sign_ext_in[15:0] <= imu_data_out[15:0]; // sign extending 16 LSBs
 
