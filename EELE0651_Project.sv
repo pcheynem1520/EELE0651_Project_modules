@@ -16,8 +16,6 @@ module EELE0651_Project (
     
 
     /* output signals */
-    output logic F_zero,        // zero flag
-    output logic F_overflow    // overflow flag
 
     /* output buses */
 
@@ -55,7 +53,6 @@ module EELE0651_Project (
         logic [4:0] write_reg;      // address of register written
 
         /* arithmetic logic unit */
-        logic [31:0] alu_op;        // alu operation
         logic [31:0] alu_in_a;      // input bus A of ALU      
         logic [31:0] alu_in_b;      // input bus B of ALU
         logic [31:0] alu_result;    // result from ALU
