@@ -12,7 +12,7 @@ module alu_control_unit (
     input logic clk,    // clock signal
 
     /* input buses */
-    input logic [31:0] alu_op,  // ALU operation code
+    input logic [2:0] alu_op,  // ALU operation code
     input logic [5:0] funct,    // function code
 
     /* output buses */

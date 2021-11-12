@@ -40,11 +40,11 @@ module EELE0651_Project (
         logic mem_write;        // enable signal for writing to data memory
         logic branch;           // ANDed with zero flag for mux select for program counter
         logic [5:0] pcu_in;     // input of processor control unit
-        logic [2:0] alu_ctl_op; // operation for ACU
+        logic [2:0] alu_ctl_in; // operation for ACU
 
         /* ALU control unit */
         logic [5:0] alu_ctl_funct;  // ACU function
-        logic [2:0] alu_op;         // ALU operation
+        logic [2:0] alu_ctl_out;    // ALU operation
 
         /* register file */
         logic [31:0] read_data_1;	// register file 32-bit output
@@ -139,11 +139,11 @@ module EELE0651_Project (
     );
     alu_control_unit acu (
         /* input buses */
-        .alu_op (alu_ctl_op),   // input operation for ACU
+        .alu_op (alu_ctl_in),   // input operation for ACU
         .funct (alu_ctl_funct), // input function from instruction
 
         /* output buses */
-        .alu_ctl (alu_op)  // output operation for ALU
+        .alu_ctl (alu_ctl_out)  // output operation for ALU
     );
     arithmetic_logic_unit alu (
         /* input signals */
