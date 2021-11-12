@@ -23,6 +23,36 @@ module EELE0651_Project (
 
 );
 
+    /* declare variables */
+    logic clk;      // main internal clock signal
+    logic clk_mem;  // memory clock signal
+    logic clr;      // clear/reset signal
+    
+    logic pc_inc;       // increment PC
+    logic pc_ld;        // load address into PC
+    logic pc_data_in;   // load data into PC
+    logic pc_data_out;  // send data out of PC
+
+    logic write;                // write signal
+    logic read_reg_1[4:0];      // address of register to read
+    logic read_data_1[31:0];    // data to read
+    logic read_reg_2[4:0];      // address of register to read
+    logic read_data_2[31:0];    // data to read
+    logic write_reg[4:0];       // address of register to write
+    logic write_data[31:0];     // data to write
+
+    logic F_zero;           // zero flag
+    logic F_overflow;       // overflow flag
+    logic alu_op[2:0];      // ALU op code
+    logic alu_in_a[31:0];   // ALU port A
+    logic alu_in_b[31:0];   // ALU port B
+    logic alu_result[31:0]; // result of ALU
+
+    logic dmu_wen;
+    logic dmu_addr[7:0];
+    logic dmu_data_in[31:0];
+    logic dmu_data_out[31:0];
+
     /* module declarations */
     program_counter pc (
         /* input signals */
@@ -184,3 +214,4 @@ module EELE0651_Project (
     end
 
 endmodule
+
