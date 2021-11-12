@@ -8,6 +8,9 @@
 //=========================================================
 
 module alu_control_unit (
+    /* input signals */
+    input logic clk,    // clock signal
+
     /* input buses */
     input logic [31:0] alu_op,  // ALU operation code
     input logic [5:0] funct,    // function code
@@ -16,7 +19,7 @@ module alu_control_unit (
     output logic [2:0] alu_ctl
 );
 
-    always_comb begin
+    always @(posedge clk) begin
         casex (alu_op)
             2'b00: alu_ctl <= 0010;                 // if opcode = LW/SW, add 
             2'b01: alu_ctl <= 0110;                 // if opcode = BEQ, subtract
