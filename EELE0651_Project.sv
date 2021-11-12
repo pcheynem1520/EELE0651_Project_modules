@@ -89,6 +89,19 @@ module EELE0651_Project (
         /* output signals */
         .q (pc_out)    // output databus 
     );
+    memory_unit imu(
+        /* input signals */
+        .clk (clk_mem), // clock signal
+        .en (!clr),     // chip-enable signal
+        .wen (1'b1),    // write-enable signal
+
+        /* input buses*/
+        .addr (imu_addr),       // address of word instruction coming in
+        .data_in (imu_data_in), // input data bus
+
+        /* output buses */
+        .data_out (imu_data_out)    // output data bus
+    );
     processor_control_unit pcu (
         /* input signals */
         .clk (clk), // clock signal
@@ -166,19 +179,6 @@ module EELE0651_Project (
         /* output buses */
         .data_out (dmu_data_out)    // output data bus
     );
-    memory_unit imu(
-        /* input signals */
-        .clk (clk_mem), // clock signal
-        .en (!clr),     // chip-enable signal
-        .wen (1'b1),    // write-enable signal
-
-        /* input buses*/
-        .addr (imu_addr),       // address of word instruction coming in
-        .data_in (imu_data_in), // input data bus
-
-        /* output buses */
-        .data_out (imu_data_out)    // output data bus
-    );
 
     /* clock division */
     logic clk_mem;                      // memory clock
@@ -199,7 +199,9 @@ module EELE0651_Project (
             end
             default: pc_in <= pc_out + 4;                   // else, next line
         endcase
-        imu_read_addr <= pc_out;                            // read line specified by pc
+       
+        /* instruction memory unit */
+        imu_addr <= pc_out; // read line specified by pc
 
         /* processor control unit */
         pcu_in[5:0] <= instruction[31:26];                  // portion of instruction for processor control unit
