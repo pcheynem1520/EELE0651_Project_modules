@@ -28,12 +28,6 @@ module arithmetic_logic_unit (
 
     /* internal wiring */
     wire [32:0] tmp_res;                    // result register plus overflow bit
-    /*
-    always_comb begin : result_and_overflow // combinational logic
-        tmp_res[31:0] = result[31:0];
-        tmp_res[32] = F_overflow;
-    end
-    */
 
     /* initialization */
     initial begin       // initialise the following values:
