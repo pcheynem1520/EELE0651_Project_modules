@@ -13,7 +13,7 @@ module alu_control_unit (
     input logic [5:0] funct,    // function code
 
     /* output buses */
-    output logic [3:0] alu_ctl
+    output logic [2:0] alu_ctl
 );
 
     casex (alu_op)
@@ -21,11 +21,12 @@ module alu_control_unit (
         2'b01: alu_ctl <= 0110;                 // if opcode = BEQ, subtract
         2'b1x: begin                            // if opcode = RTYPE and;
             case (funct)
-                6'b100000: alu_ctl <= 4'b0010;  // if funct = ADD, add
-                6'b100010: alu_ctl <= 4'b0110;  // if funct = SUB, subtract
-                6'b100100: alu_ctl <= 4'b0000;  // if funct = AND, and
-                6'b100101: alu_ctl <= 4'b0001;  // if funct = OR, or
-                6'b101010: alu_ctl <= 4'b0111;  // if funct = SLT, set on less than
+                6'b100000: alu_ctl <= 3'b010;   // if funct = ADD, add
+                6'b100001: alu_ctl <= 3'b100;   // if funct = ROL, rotate 1 bit left
+                6'b100010: alu_ctl <= 3'b110;   // if funct = SUB, subtract
+                6'b100011: alu_ctl <= 3'b101;   // if funct = ROR, rotate 1 bit right
+                6'b100100: alu_ctl <= 3'b000;   // if funct = AND, and
+                6'b100101: alu_ctl <= 3'b001;   // if funct = OR, or
             endcase
         end
     endcase
