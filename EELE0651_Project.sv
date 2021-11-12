@@ -10,7 +10,8 @@
 
 module EELE0651_Project (
     /* input signals */
-    input logic clk_in     // input clock signal
+    input logic clk_in, // input clock signal
+    input logic clr
 
     /* input buses */
     
@@ -64,6 +65,7 @@ module EELE0651_Project (
         logic [31:0] sign_ext_out;  // sign extended output
         
         /* data memory unit */
+        logic 
         logic [7:0] dmu_addr;       // address for data memory unit access
         logic [31:0] dmu_data_in;   // data input bus for data memory unit
         logic [31:0] dmu_data_out;  // data output from data memory unit
@@ -73,14 +75,12 @@ module EELE0651_Project (
         /* input signals */
         .clk (clk),     // clock signal
         .clr (clr),     // clear/reset signal
-        .inc (pc_inc),  // increment program counter
-        .ld (pc_ld),    // allow data to be stored
 
         /* input buses */
-        .d (pc_data_in),    // input data bus
+        .d (pc_in),    // input data bus
 
         /* output signals */
-        .q (pc_data_out)    // output databus 
+        .q (pc_out)    // output databus 
     );
     processor_control_unit pcu (
         /* input signals */
@@ -105,7 +105,7 @@ module EELE0651_Project (
         /* input signals */
         .clk (clk),     // clock signal
         .clr (clr),     // clear/reset signal
-        .write (write), // read/write control signal (read = 0, write = 1)
+        .write (reg_write), // read/write control signal (read = 0, write = 1)
 
         /* input buses */
         .read_reg_1 (read_reg_1),   // address of first register to read 
@@ -182,7 +182,7 @@ module EELE0651_Project (
         /* next line of program */
         case ((branch & F_zero))                            // mux select
             1'b1: begin                                     // if (branch & F_zero) = 1,
-                pc_in <= (pc_out + 4) + (sign_ext << 2);    // branch to
+                pc_in <= (pc_out + 4) + (sign_ext_out << 2);    // branch to
             end
             default: pc_in <= pc_out + 4;                   // else, next line
         endcase
