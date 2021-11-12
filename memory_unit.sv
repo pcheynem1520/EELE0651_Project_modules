@@ -4,14 +4,14 @@
 // Date: 6 October 2021
 // Description:
 // 
-// The data memory unit has an 8-bit address input (addr),
+// The memory unit has an 8-bit address input (addr),
 // 32-bit data input and output (data_in and data_out),
 // and other control lines such as clock, write enable
 // (wen), and enable (en). This allows for the storage of
 // data for use by the processor.
 //=========================================================
 
-module data_memory_unit (
+module memory_unit (
     /* input signals */
     input logic clk,    // clock signal
     input logic en,     // chip-enable signal
