@@ -196,9 +196,9 @@ module EELE0651_Project (
         /* next line of program */
         case ((branch & F_zero))                                    // mux select
             1'b1: begin                                             // if (branch & F_zero) = 1,
-                pc_in[7:0] <= (pc_out + 4) + (imu_data_out[7:0] << 2);       // branch to
+                pc_in <= (pc_out + 4) + (imu_data_out << 2);            // branch to
             end
-            default: pc_in <= pc_out + 4;                               // else, next line
+            default: pc_in <= pc_out + 4;                           // else, next line
         endcase
        
         /* instruction memory unit */
