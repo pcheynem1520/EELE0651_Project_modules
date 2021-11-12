@@ -54,7 +54,7 @@ module arithmetic_logic_unit (
         result[31:0] <= tmp_res;    // assign output to temporary value
         F_overflow <= tmp_res[32];  // assign overflow flag
         case (result)                                               // from thr result
-            32'b00000000000000000000000000000000: F_zero <= 1'b1;   // if all 0s, set zero flag
+            0: F_zero <= 1'b1;   // if all 0s, set zero flag
             default: F_zero <= 1'b0;                                // else, unset zero flag
         endcase
 
