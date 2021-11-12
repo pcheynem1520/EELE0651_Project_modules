@@ -10,16 +10,13 @@
 
 module EELE0651_Project (
     /* input signals */
-    input logic clk_in, // input clock signal
-    input logic clr
+    input logic clk_in,         // input clock signal
+    input logic clr,            // clear/reset signal
+    input logic prog_write,  // write-enable signal for program memory
 
     /* input buses */
-    
-
-    /* output signals */
-
-    /* output buses */
-
+    input logic [7:0] prog_addr, // 8-bit address of line for instruction
+    input logic [31:0] prog_data // 32-bit word to input to program memory
 );
 
     /* declare variables */
@@ -27,8 +24,11 @@ module EELE0651_Project (
         logic [7:0] pc_in;     // pc input bus
         logic [7:0] pc_out;    // pc output bus
 
-        /* instruction memory */
-        logic [31:0] imu_read_addr;  // input bus of instruction memory
+        /* instruction memory unit */
+        logic imu_wen;              // write-enable for instruction memory unit
+        logic [7:0] imu_addr;       // address for instruction memory unit access
+        logic [31:0] imu_data_in;   // data input bus for instruction memory unit
+        logic [31:0] imu_data_out;  // data output from instruction memory unit
 
         /* processor control unit */
         logic reg_dst;          // mux select for source of register writer
@@ -69,12 +69,6 @@ module EELE0651_Project (
         logic [7:0] dmu_addr;       // address for data memory unit access
         logic [31:0] dmu_data_in;   // data input bus for data memory unit
         logic [31:0] dmu_data_out;  // data output from data memory unit
-
-        /* instruction memory unit */
-        logic imu_wen;              // write-enable for instruction memory unit
-        logic [7:0] imu_addr;       // address for instruction memory unit access
-        logic [31:0] imu_data_in;   // data input bus for instruction memory unit
-        logic [31:0] imu_data_out;  // data output from instruction memory unit
 
     /* module declarations */
     program_counter pc (
@@ -195,14 +189,19 @@ module EELE0651_Project (
     always_comb begin : datapath_logic
         /* next line of program */
         case ((branch & F_zero))                                // mux select
-            1'b1: begin                                         // if (branch & F_zero) = 1,
-                pc_in <= (pc_out + 4) + (imu_data_out << 2);    // branch to
-            end
+            1'b1: pc_in <= (pc_out + 4) + (imu_data_out << 2);  // if (branch & F_zero) = 1, branch to
             default: pc_in <= pc_out + 4;                       // else, next line
         endcase
        
         /* instruction memory unit */
-        imu_addr <= pc_out; // read line specified by pc
+        imu_wen <= prog_write;
+        case (imu_wen)                      // based on 
+            1'b1: begin                     // writing program to memory
+                imu_addr <= prog_addr;       // select line for instruction
+                imu_data_in <= prog_data;    // write intruction to memory
+            end
+            default: imu_addr <= pc_out;    // read line specified by pc
+        endcase
 
         /* processor control unit */
         pcu_in[5:0] <= imu_data_out[31:26]; // portion of instruction for processor control unit
