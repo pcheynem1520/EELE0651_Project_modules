@@ -35,9 +35,9 @@ module arithmetic_logic_unit (
 
     /* initialization */
     initial begin       // initialise the following values:
-        result = 0;     // result bus = 0
-        F_zero = 0;     // zero flag = unset
-        F_overflow = 0; // overfow flag = unset
+        result <= 0;     // result bus = 0
+        F_zero <= 0;     // zero flag = unset
+        F_overflow <= 0; // overfow flag = unset
     end
 
     /* ALU definition */
@@ -59,9 +59,9 @@ module arithmetic_logic_unit (
         endcase
 
         if (result == 0) begin  // if the result bus is all zeros,
-            F_zero = 1;         // set the zero flag,
+            F_zero <= 1;         // set the zero flag,
         end else begin          // otherwise,
-            F_zero = 0;         // unset the zero flag
+            F_zero <= 0;         // unset the zero flag
         end
     end
 
