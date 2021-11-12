@@ -119,7 +119,7 @@ module EELE0651_Project (
         .branch (branch),           // branch instruction signal
 
         /* output buses */
-        .alu_op (alu_op)    // opcode for ALU control unit
+        .alu_op (alu_ctl_in)    // opcode for ALU control unit
     );
     register_file reg_file (
         /* input signals */
