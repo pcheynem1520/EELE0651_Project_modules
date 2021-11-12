@@ -20,14 +20,14 @@ module program_counter (
     */
 
     /* input buses */
-    input logic [31:0] d,   // input data bus
+    input logic [7:0] d,   // input data bus
 
     /* output signals */
-    output logic [31:0] q   // output databus 
+    output logic [7:0] q   // output databus 
 );
 
 	initial begin           // initialise the following values:
-		q <= 32'b00000000;  // q = 0
+		q <= 8'b00000000;   // q = 0
 	end
 
     always @(posedge clk) begin // on positive edge of clock
