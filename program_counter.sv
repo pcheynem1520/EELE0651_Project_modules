@@ -13,8 +13,11 @@ module program_counter (
     /* input signals */
     input logic clk,    // clock signal
     input logic clr,    // clear/reset signal
+    
+    /* old program counter inputs
     input logic inc,    // increment program counter
     input logic ld,     // allow data to be stored
+    */
 
     /* input buses */
     input logic [31:0] d,   // input data bus
@@ -27,6 +30,16 @@ module program_counter (
 		q <= 32'b00000000;  // q = 0
 	end
 
+    always @(posedge clk) begin // on positive edge of clock
+        case (!clr)             // based on clear/reset signal
+            1'b1: begin         // if clr is low
+                q <= d;         // next instruction is input line address 
+            end
+            default: q <= 0;    // else, reset PC to line 0
+        endcase
+    end
+
+/* old program counter with internal incrementation logic
     always @(posedge clk) begin             // at the positive edge of clock signal
     	if (clr) begin                      // when clear signal is active
     		q <= 32'b00000000;              // set output q to 0
@@ -45,5 +58,6 @@ module program_counter (
             end
     	end
     end
+*/
 
 endmodule
