@@ -9,9 +9,9 @@
 // the processor memory.
 //=========================================================
 
-module memory_signal_generator (
+//module memory_signal_generator (
     /* input signals */
-    input logic clk,    // clock signal
+    //input logic clk,    // clock signal
 
     /* input buses */
 
@@ -19,6 +19,6 @@ module memory_signal_generator (
 
     /* output buses */
     
-);
+//);
     
-endmodule
+//endmodule

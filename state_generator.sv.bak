@@ -10,9 +10,9 @@
 // current state of the instruction being executed.
 //=========================================================
 
-//module state_generator (
+module state_generator (
     /* input signals */
-   // input logic clk,    // clock signal
+    input logic clk,    // clock signal
 
     /* input buses */
 
@@ -20,6 +20,6 @@
 
     /* output buses */
     
-//);
+);
     
-//endmodule
+endmodule

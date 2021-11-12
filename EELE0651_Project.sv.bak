@@ -17,7 +17,7 @@ module EELE0651_Project (
 
     /* output signals */
     output logic F_zero,        // zero flag
-    output logic F_overflow    // overflow flag
+    output logic F_overflow,    // overflow flag
 
     /* output buses */
 
