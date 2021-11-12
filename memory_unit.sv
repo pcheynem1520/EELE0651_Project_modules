@@ -26,7 +26,7 @@ module memory_unit (
 );
 
     /* internal logic */
-    reg [31:0] data_mem[0:255];   // data memory of 256 32-bit words 
+    reg [31:0] data_mem[255:0];   // data memory of 256 32-bit words 
 
     /* initialization */
     initial begin
