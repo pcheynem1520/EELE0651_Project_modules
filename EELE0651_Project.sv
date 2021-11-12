@@ -141,7 +141,9 @@ module EELE0651_Project (
         /* input buses */
         .alu_op (alu_ctl_op),   // input operation for ACU
         .funct (alu_ctl_funct), // input function from instruction
-        .alu_ctl (alu_ctl_out)  // output operation for ALU
+
+        /* output buses */
+        .alu_ctl (alu_op)  // output operation for ALU
     );
     arithmetic_logic_unit alu (
         /* input signals */
@@ -223,7 +225,6 @@ module EELE0651_Project (
 
         /* ALU control unit */
         alu_ctl_funct[5:0] <= instruction[5:0]; // funct for ACU
-        alu_ctl_out <= alu_op;                  // operation for ALU
 
         /* arithmetic logic unit */
         alu_in_a <= read_data_1;            // ALU port A
