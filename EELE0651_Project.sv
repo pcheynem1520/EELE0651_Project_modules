@@ -30,7 +30,7 @@ module EELE0651_Project (
 
         /* instruction memory */
         logic [31:0] imu_read_addr;  // input bus of instruction memory
-        logic [31:0] instruction;   // output bus of intruction memory
+        logic [31:0] instruction;    // output bus of intruction memory
 
         /* processor control unit */
         logic [5:0] pcu_in; // input of processor control unit
