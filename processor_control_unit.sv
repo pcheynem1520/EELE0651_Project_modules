@@ -41,13 +41,13 @@ module processor_control_unit (
         mem_write = ctl_out[3];         // enable signal for writing to data memory
         branch = ctl_out[2];            // ANDed with zero flag for mux select forprogram counter
         alu_op = ctl_out[1:0];          // operation for ALU
-    end
 
-    case (ctl_op)                          // if the control unit operation is
-        6'b000000: ctl_out <= 9'b100100010; // RTYPE, 100100010
-        6'b100011: ctl_out <= 9'b011110000; // LW, 011110000
-        6'b101011: ctl_out <= 9'b010001000; // SW, x1x001000
-        6'b000100: ctl_out <= 9'b000000101; // BEQ, x0x000101
-    endcase
+        case (ctl_op)                          // if the control unit operation is
+            6'b000000: ctl_out <= 9'b100100010; // RTYPE, 100100010
+            6'b100011: ctl_out <= 9'b011110000; // LW, 011110000
+            6'b101011: ctl_out <= 9'b010001000; // SW, x1x001000
+            6'b000100: ctl_out <= 9'b000000101; // BEQ, x0x000101
+        endcase
+    end
 
 endmodule
