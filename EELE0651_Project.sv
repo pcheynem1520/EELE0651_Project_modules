@@ -10,7 +10,7 @@
 
 module EELE0651_Project (
     /* input signals */
-    input logic clk_in,     // input clock signal
+    input logic clk_in     // input clock signal
 
     /* input buses */
     

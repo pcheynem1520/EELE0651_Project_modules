@@ -43,7 +43,7 @@ module processor_control_unit (
         alu_op = ctl_out[1:0];          // operation for ALU
     end
 
-    casex (ctl_op)                          // if the control unit operation is
+    case (ctl_op)                          // if the control unit operation is
         6'b000000: ctl_out <= 9'b100100010; // RTYPE, 100100010
         6'b100011: ctl_out <= 9'b011110000; // LW, 011110000
         6'b101011: ctl_out <= 9'b010001000; // SW, x1x001000
