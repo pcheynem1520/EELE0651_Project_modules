@@ -21,9 +21,9 @@ module alu_control_unit (
 
     always @(posedge clk) begin
         casex (alu_op)
-            2'b00: alu_ctl <= 0010;                 // if opcode = LW/SW, add 
-            2'b01: alu_ctl <= 0110;                 // if opcode = BEQ, subtract
-            2'b1x: begin                            // if opcode = RTYPE and;
+            2'b00: alu_ctl <= 3'b010;               // if opcode = LW/SW, add
+            2'b01: alu_ctl <= 3'b110;               // if opcode = BEQ, subtract
+            2'b1x: begin                            // if opcode = RTYPE and
                 case (funct)
                     6'b100000: alu_ctl <= 3'b010;   // if funct = ADD, add
                     6'b100001: alu_ctl <= 3'b100;   // if funct = ROL, rotate 1 bit left
