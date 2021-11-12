@@ -32,7 +32,6 @@ module EELE0651_Project (
         logic [31:0] instruction;    // output bus of intruction memory
 
         /* processor control unit */
-        logic [5:0] pcu_in; // input of processor control unit
         logic reg_dst;      // mux select for source of register writer
         logic alu_src;      // mux select for ALU source
         logic mem_to_reg;   // mux select for registers' write data source
@@ -40,7 +39,8 @@ module EELE0651_Project (
         logic mem_read;     // enable signal for reading from data memory
         logic mem_write;    // enable signal for writing to data memory
         logic branch;       // ANDed with zero flag for mux select for program counter
-        logic alu_op[1:0];  // operation for ALU
+        logic [5:0] pcu_in; // input of processor control unit
+        logic [2:0] alu_op; // operation for ALU
 
         /* ALU control unit */
         logic [3:0] alu_ctl;    // ALU control bus
@@ -54,21 +54,27 @@ module EELE0651_Project (
         logic [4:0] write_reg;      // address of register written
 
         /* arithmetic logic unit */
+        logic F_zero;               // zero flag
+        logic F_overflow;           // overflow flag
         logic [31:0] alu_in_a;      // input bus A of ALU      
         logic [31:0] alu_in_b;      // input bus B of ALU
         logic [31:0] alu_result;    // result from ALU
-        logic F_zero;               // zero flag
-        logic F_overflow;           // overflow flag
 
         /* sign extender */
         logic [15:0] sign_ext_in;   // sign extender input
         logic [31:0] sign_ext_out;  // sign extended output
         
         /* data memory unit */
-        logic 
+        logic dmu_wen;              // write-enable for data memory unit
         logic [7:0] dmu_addr;       // address for data memory unit access
         logic [31:0] dmu_data_in;   // data input bus for data memory unit
         logic [31:0] dmu_data_out;  // data output from data memory unit
+
+        /* instruction memory unit */
+        logic imu_wen;              // write-enable for instruction memory unit
+        logic [7:0] imu_addr;       // address for instruction memory unit access
+        logic [31:0] imu_data_in;   // data input bus for instruction memory unit
+        logic [31:0] imu_data_out;  // data output from instruction memory unit
 
     /* module declarations */
     program_counter pc (
