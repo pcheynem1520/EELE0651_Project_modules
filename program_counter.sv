@@ -13,11 +13,6 @@ module program_counter (
     /* input signals */
     input logic clk,    // clock signal
     input logic clr,    // clear/reset signal
-    
-    /* old program counter inputs
-    input logic inc,    // increment program counter
-    input logic ld,     // allow data to be stored
-    */
 
     /* input buses */
     input logic [7:0] d,   // input data bus
@@ -30,34 +25,13 @@ module program_counter (
 		q <= 8'b00000000;   // q = 0
 	end
 
-    always @(posedge clk) begin // on positive edge of clock
-        case (!clr)             // based on clear/reset signal
-            1'b1: begin         // if clr is low
-                q <= d;         // next instruction is input line address 
+    always @(posedge clk) begin         // on positive edge of clock
+        case (!clr)                     // based on clear/reset signal
+            1'b1: begin                 // if clr is low
+                q <= d;                     // next instruction is input line address 
             end
-            default: q <= 0;    // else, reset PC to line 0
+            default: q <= 8'b00000000;  // else, reset PC to line 0
         endcase
     end
-
-/* old program counter with internal incrementation logic
-    always @(posedge clk) begin             // at the positive edge of clock signal
-    	if (clr) begin                      // when clear signal is active
-    		q <= 32'b00000000;              // set output q to 0
-    	end
-    	else begin                          // when clear signal is inactive
-            if (ld) begin                   // and load signal is active
-                if (inc) begin              // and increment signal is active
-                    q <= d + 32'b00000100;  // output q becomes d plus an increment of 4 byte-addresses
-                end
-                else begin                  // if incrememnt signal is inactive
-                    q <= d;                 // q does not increment and instead takes on the present value of d
-                end
-            end
-			else begin                      // if load signal is inactive
-                q <= q;                     // keep q the same
-            end
-    	end
-    end
-*/
 
 endmodule
