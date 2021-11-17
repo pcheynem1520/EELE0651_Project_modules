@@ -53,11 +53,11 @@ module project_TB;
         HALT <= 1'b1;    // initialize halt signal set
         CLOCK <= 1'b0;   // initialize clock signal unset
 
-        PROG_W = 1'b1;                                                      // enable writing to program memory
-        for (PROG_ADDR = 0; i < 256; PROG_ADDR = PROG_ADDR + 1) begin    // for all addresses of program memory
+        PROG_W = 1'b1;                                                  // enable writing to program memory
+        for (PROG_ADDR = 0; i < 256; PROG_ADDR = PROG_ADDR + 1) begin   // for all addresses of program memory
             PROG_DATA <= 32'b00000000000000000000000000000000;              // clear line
         end
-        PROG_W <= 1'b0;                                                      // disable writing to program memory
+        PROG_W <= 1'b0;                                                     // disable writing to program memory
     end
 
     /* clock module */
