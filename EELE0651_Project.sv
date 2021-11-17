@@ -192,16 +192,6 @@ module EELE0651_Project (
             1'b1: pc_in <= (pc_out + 4) + (imu_data_out << 2);  // if (branch & F_zero) = 1, branch to
             default: pc_in <= pc_out + 4;                       // else, next line
         endcase
-       
-        /* instruction memory unit */
-        imu_wen <= prog_write;
-        case (imu_wen)                      // based on 
-            1'b1: begin                     // writing program to memory
-                imu_addr <= prog_addr;       // select line for instruction
-                imu_data_in <= prog_data;    // write intruction to memory
-            end
-            default: imu_addr <= pc_out;    // read line specified by pc
-        endcase
 
         /* processor control unit */
         pcu_in[5:0] <= imu_data_out[31:26]; // portion of instruction for processor control unit
@@ -235,5 +225,17 @@ module EELE0651_Project (
         dmu_addr[7:0] <= alu_result[7:0];   // address to be written
         dmu_data_in <= read_data_2;         // data to be written
     end
+	 
+	 always @(posedge clk) begin
+        /* instruction memory unit */
+        imu_wen <= prog_write;
+        case (imu_wen)                      // based on 
+            1'b1: begin                     // writing program to memory
+                imu_addr <= prog_addr;       // select line for instruction
+                imu_data_in <= prog_data;    // write intruction to memory
+            end
+            default: imu_addr <= pc_out;    // read line specified by pc
+        endcase
+	 end
 
 endmodule
