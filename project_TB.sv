@@ -25,7 +25,6 @@ module project_TB;
     logic [31:0] PROG_DATA; // data of written program line
 
     /* define program to run on processor */
-    reg [31:0] PROGRAM [31:0];
     int MAX_LINE = 8;   // final line number of program (1-based index)
     initial begin       // defining instructions of program
         PROGRAM[0] = 32'b00000000000000000000000000000000;
@@ -55,10 +54,10 @@ module project_TB;
         CLOCK <= 1'b0;   // initialize clock signal unset
 
         PROG_W = 1'b1;                                                  // enable writing to program memory
-        for (PROG_ADDR = 0; PROG_ADDR < 256; PROG_ADDR = PROG_ADDR + 1) begin   // for all addresses of program memory
+        for (PROG_ADDR = 0; i < 256; PROG_ADDR = PROG_ADDR + 1) begin   // for all addresses of program memory
             PROG_DATA <= 32'b00000000000000000000000000000000;              // clear line
         end
-        PROG_W <= 1'b0;                                                 // disable writing to program memory
+        PROG_W <= 1'b0;                                                     // disable writing to program memory
     end
 
     /* clock module */
