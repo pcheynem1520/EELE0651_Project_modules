@@ -27,7 +27,7 @@ module arithmetic_logic_unit (
 );
 
     /* internal wiring */
-    wire [32:0] tmp_res;                    // result register plus overflow bit
+    reg [32:0] tmp_res;                    // result register plus overflow bit
 
     /* initialization */
     initial begin       // initialise the following values:
@@ -46,13 +46,13 @@ module arithmetic_logic_unit (
             3'b100:     tmp_res <= A << 1;  // rotate A 1 bit left,
             3'b101:     tmp_res <= A >> 1;  // rotate A 1 bit right, or
         endcase
-        result[31:0] <= tmp_res[31:0];    // assign output to temporary value
-        F_overflow <= tmp_res[32];  // assign overflow flag
+        result[31:0] <= tmp_res[31:0];  // assign output to temporary value
+        F_overflow <= tmp_res[32];      // assign overflow flag
 
         if (result == 0) begin  // if the result bus is all zeros,
-            F_zero = 1;         // set the zero flag,
+            F_zero <= 1;        // set the zero flag,
         end else begin          // otherwise,
-            F_zero = 0;         // unset the zero flag
+            F_zero <= 0;        // unset the zero flag
         end
     end
 
