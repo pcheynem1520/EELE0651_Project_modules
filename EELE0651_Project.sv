@@ -20,13 +20,17 @@ module EELE0651_Project (
 );
 
     /* declare variables */
+        /* clocks */
+        logic clk_mem;  // memory clock
+        logic clk;      // standard clock
+
         /* program counter */
-        logic [7:0] pc_in;     // pc input bus
-        logic [7:0] pc_out;    // pc output bus
+        logic [31:0] pc_in;     // pc input bus
+        logic [31:0] pc_out;    // pc output bus
 
         /* instruction memory unit */
         logic imu_wen;              // write-enable for instruction memory unit
-        logic [7:0] imu_addr;       // address for instruction memory unit access
+        logic [31:0] imu_addr;       // address for instruction memory unit access
         logic [31:0] imu_data_in;   // data input bus for instruction memory unit
         logic [31:0] imu_data_out;  // data output from instruction memory unit
 
@@ -82,7 +86,7 @@ module EELE0651_Project (
         /* output signals */
         .q (pc_out)    // output databus 
     );
-    memory_unit imu(
+    instruction_memory_unit imu(
         /* input signals */
         .clk (clk_mem), // clock signal
         .en (!clr),     // chip-enable signal
@@ -161,7 +165,7 @@ module EELE0651_Project (
         /* output buses */
         .sign_ext (sign_ext_out)    // sign extended data
     );
-    memory_unit dmu (
+    data_memory_unit dmu (
         /* input signals */
         .clk (clk_mem), // clock signal
         .en (!clr),     // chip-enable signal
@@ -176,8 +180,6 @@ module EELE0651_Project (
     );
 
     /* clock division */
-    logic clk_mem;                      // memory clock
-    logic clk;                          // standard clock
     always_comb begin : clk_sync        // sync memory clock signal
         clk_mem <= clk_in;              // memory clock is same speed as input clock signal
     end
