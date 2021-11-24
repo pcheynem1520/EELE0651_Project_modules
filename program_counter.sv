@@ -15,14 +15,14 @@ module program_counter (
     input logic clr,    // clear/reset signal
 
     /* input buses */
-    input logic [7:0] d,   // input data bus
+    input logic [31:0] d,   // input data bus
 
     /* output signals */
-    output logic [7:0] q   // output databus 
+    output logic [31:0] q   // output databus 
 );
 
-	initial begin           // initialise the following values:
-		q <= 8'b00000000;   // q = 0
+	initial begin           // initialise the output
+		q <= 0;
 	end
 
     always @(posedge clk) begin         // on positive edge of clock
