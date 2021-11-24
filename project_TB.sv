@@ -41,8 +41,8 @@ module project_TB;
     /* instantiation of unit under test */
     EELE0651_Project uut(
         /* input signals */
-        .clk_in (CLOCK),   // clock signal
-        .clr (CLEAR),   // clear/reset signal
+        .clk_in (CLOCK),        // clock signal
+        .clr (CLEAR),           // clear/reset signal
         .prog_write (PROG_W),   // write-enable signal for program memory
 
         /* input buses */
