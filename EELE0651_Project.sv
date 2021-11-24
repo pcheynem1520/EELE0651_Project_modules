@@ -69,7 +69,7 @@ module EELE0651_Project (
         logic [31:0] sign_ext_out;  // sign extended output
         
         /* data memory unit */
-        logic dmu_wen;              // write-enable for data memory unit
+        //logic dmu_wen;              // write-enable for data memory unit
         logic [7:0] dmu_addr;       // address for data memory unit access
         logic [31:0] dmu_data_in;   // data input bus for data memory unit
         logic [31:0] dmu_data_out;  // data output from data memory unit
@@ -88,9 +88,9 @@ module EELE0651_Project (
     );
     instruction_memory_unit imu(
         /* input signals */
-        .clk (clk_mem), // clock signal
-        .en (!clr),     // chip-enable signal
-        .wen (1'b1),    // write-enable signal
+        .clk (clk_mem),     // clock signal
+        .en (!clr),         // chip-enable signal
+        .wen (imu_wen),     // write-enable signal
 
         /* input buses*/
         .addr (imu_addr),       // address of word instruction coming in
@@ -172,7 +172,7 @@ module EELE0651_Project (
         /* input signals */
         .clk (clk_mem), // clock signal
         .en (!clr),     // chip-enable signal
-        .wen (dmu_wen), // write-enable signal
+        .wen (mem_write), // write-enable signal
 
         /* input buses */
         .addr (dmu_addr),       // 8-bit address of word being read/written
@@ -236,8 +236,8 @@ module EELE0651_Project (
         imu_wen <= prog_write;
         case (imu_wen)                      // based on 
             1'b1: begin                     // writing program to memory
-                imu_addr <= prog_addr;       // select line for instruction
-                imu_data_in <= prog_data;    // write intruction to memory
+                imu_addr <= prog_addr;      // select line for instruction
+                imu_data_in <= prog_data;   // write intruction to memory
             end
             default: imu_addr <= pc_out;    // read line specified by pc
         endcase
