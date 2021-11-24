@@ -20,7 +20,7 @@ module project_TB;
     logic CLEAR;    // clear/reset signal
     logic PROG_W;   // write-enable signal for program memory
 
-    /* input bus */
+    /* input buses */
     logic [7:0] PROG_ADDR;  // address of written program line
     logic [31:0] PROG_DATA; // data of written program line
 
@@ -41,8 +41,9 @@ module project_TB;
     /* instantiation of unit under test */
     EELE0651_Project uut(
         /* input signals */
-        .clk (CLOCK),   // clock signal
+        .clk_in (CLOCK),   // clock signal
         .clr (CLEAR),   // clear/reset signal
+        .prog_write (PROG_W),   // write-enable signal for program memory
 
         /* input buses */
         .prog_addr (PROG_ADDR), // 8-bit address of line for instruction
