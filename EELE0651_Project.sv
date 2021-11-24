@@ -12,7 +12,7 @@ module EELE0651_Project (
     /* input signals */
     input logic clk_in,         // input clock signal
     input logic clr,            // clear/reset signal
-    input logic prog_write,  // write-enable signal for program memory
+    input logic prog_write,     // write-enable signal for program memory
 
     /* input buses */
     input logic [7:0] prog_addr, // 8-bit address of line for instruction
@@ -135,6 +135,9 @@ module EELE0651_Project (
         .read_data_2 (read_data_2)  // register file 32-bit output
     );
     alu_control_unit acu (
+        /* input signals */
+        .clk (clk), // clock signal
+
         /* input buses */
         .alu_op (alu_ctl_in),   // input operation for ACU
         .funct (alu_ctl_funct), // input function from instruction
