@@ -24,6 +24,10 @@ module EELE0651_Project (
         logic clk_mem;  // memory clock
         logic clk;      // standard clock
 
+        /* reset circuit */
+        logic en;
+        logic clr_pc;
+
         /* program counter */
         logic [31:0] pc_in;     // pc input bus
         logic [31:0] pc_out;    // pc output bus
@@ -69,16 +73,25 @@ module EELE0651_Project (
         logic [31:0] sign_ext_out;  // sign extended output
         
         /* data memory unit */
-        //logic dmu_wen;              // write-enable for data memory unit
         logic [7:0] dmu_addr;       // address for data memory unit access
         logic [31:0] dmu_data_in;   // data input bus for data memory unit
         logic [31:0] dmu_data_out;  // data output from data memory unit
 
     /* module declarations */
+    reset_circuit rst_ckt (
+        /* input signals */
+        .clk (clk),
+        .rst (clr),
+
+        /* output signals */
+        .enable (en),
+        .clear_pc (clr_pc)
+    );
+
     program_counter pc (
         /* input signals */
         .clk (clk),     // clock signal
-        .clr (clr),     // clear/reset signal
+        .clr (clr_pc),     // clear/reset signal
 
         /* input buses */
         .d (pc_in),    // input data bus
@@ -89,7 +102,7 @@ module EELE0651_Project (
     instruction_memory_unit imu(
         /* input signals */
         .clk (clk_mem),     // clock signal
-        .en (!clr),         // chip-enable signal
+        .en (en),         // chip-enable signal
         .wen (imu_wen),     // write-enable signal
 
         /* input buses*/
@@ -121,7 +134,7 @@ module EELE0651_Project (
     register_file reg_file (
         /* input signals */
         .clk (clk),     // clock signal
-        .clr (clr),     // clear/reset signal
+        .clr (clr_pc),     // clear/reset signal
         .write (reg_write), // read/write control signal (read = 0, write = 1)
 
         /* input buses */
@@ -170,9 +183,9 @@ module EELE0651_Project (
     );
     data_memory_unit dmu (
         /* input signals */
-        .clk (clk_mem), // clock signal
-        .en (!clr),     // chip-enable signal
-        .wen (mem_write), // write-enable signal
+        .clk (clk_mem),     // clock signal
+        .en (mem_read),     // read-/chip-enable signal
+        .wen (mem_write),   // write-enable signal
 
         /* input buses */
         .addr (dmu_addr),       // 8-bit address of word being read/written
